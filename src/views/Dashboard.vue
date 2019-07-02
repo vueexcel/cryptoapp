@@ -10,7 +10,6 @@
                 <b-form-group id="input-group-3" label="Symbols" label-for="input-3">
                   <b-form-select id="input-3" v-model="form.symbol" :options="currency" required></b-form-select>
                 </b-form-group>
-                <!-- </b-form> -->
               </b-col>
               <b-col sm="auto" md="4">
                 <b-form-group id="input-group-2" label="Public address" label-for="input-2">
@@ -36,16 +35,14 @@
           </b-form>
         </b-container>
       </b-card>
-      <!-- Table Component -->
-      <!-- <Table/> -->
       <b-card class="mt-3" title="Balance" v-if="Object.keys(transactions).length">
         <b-card-text>
           <span class="font-weight-bold">Amount Received:</span>
-          {{ transactions.amountReceived }}
+          {{ transactions.amountReceived ? transactions.amountReceived : 'No Data' }}
         </b-card-text>
         <b-card-text>
           <span class="font-weight-bold">Amount AmountSent:</span>
-          {{ transactions.amountSent }}
+          {{ transactions.amountSent ? transactions.amountSent : 'No data' }}
         </b-card-text>
         <b-card-text>
           <span class="font-weight-bold">Balance:</span>
@@ -64,19 +61,9 @@
           {{ transactions.record_id }}
         </b-card-text>
       </b-card>
+      <!-- Table Component -->
       <b-card class="mt-3" title="Transactions" v-if="Object.keys(transactions).length">
-        <b-card-text>
-          <b-container class="bv-example-row">
-            <h6>From:</h6>
-            <b-row v-for=" ( transaction, index ) in transactions.transactions" :key="index">
-              <b-col>{{ transaction.from }}</b-col>
-              <b-col class="mb-5">
-                <p class="font-weight-normal">{{ transaction.to }}</p>
-                {{ transaction.date }}
-              </b-col>
-            </b-row>
-          </b-container>
-        </b-card-text>
+        <Table :items="transactions.transactions"/>
       </b-card>
     </b-container>
   </div>
